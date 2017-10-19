@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <style>
+        ul,li{margin: 0; padding: 0;list-style: none;}
+        *{box-sizing: border-box;}
+        a{display: inline-block;border-radius: 5px;padding: 5px 15px;background-color: #f00;color: #fff;text-decoration: none;}
+        #app{position: relative;}
+        .model{position: absolute;z-index: -1;opacity: 0;height: 0px;width: 100px; background-color: #900;}
+        .tran{transition: all .3s ease;opacity: 1;z-index: 1000;}
+
+
+        .table .table-ul, .table .tables-ul{width: 600px;font-size: 0;}
+
+        .table .table-ul li, .boxs .boxs-title li {
+          line-height: 36px; border: 1px solid #333;
+          border-bottom: none; border-right: none;
+        }
+        .table .table-ul li:last-child, .boxs .boxs-title li:last-child{
+          border-right: 1px solid #333;
+        }
+
+        .tables-ul li {border-right: 1px solid #333; }
+        .tables-ul li:last-child{border-right: none;}
+
+        .table .table-ul li, .table .tables-ul li {font-size: 14px;width: 200px;display: inline-block;  text-align: center;}
+
+        .single {width: 600px;border: 1px solid #333;box-sizing: border-box;margin-bottom: -1px;}
+
+        .single .boxs{width: 540px;margin: 0 auto;}
+        .border-bottom{border-bottom: 1px solid #333;}
+        .boxs .boxs-title, .boxs .boxs-item{font-size: 0;}
+        .boxs .boxs-title li {border-top: none;width: 180px;display: inline-block;font-size: 14px;text-align: center;}
+        .boxs .boxs-item li {border-left: 1px solid #333; border-top: 1px solid #333;width: 180px;display: inline-block;font-size: 14px;text-align: center;}
+        .boxs .boxs-item li:last-child{border-right: 1px solid #333;}
+    </style>
+</head>
+<body>
+    <div id="app" class="yellow red blue">
+      <div class="table">
+        <ul class="table-ul">
+          <li>订单号</li>
+          <li>数量</li>
+          <li>状态</li>
+        </ul>
+        <div class="single" v-for="(item, index) in items">
+          <ul class="tables-ul">
+            <li><i class="el-icon-plus" @click="getBox(index, $event)"></i>{{item.orderNo}}</li>
+            <li>{{item.number}}</li>
+            <li>{{item.status}}</li>
+          </ul>
+
+          <div class="boxs" v-if="active == index">
+            <ul class="boxs-title">
+              <li>订单号</li>
+              <li>箱数</li>
+              <li>状态</li>
+            </ul>
+            <ul class="boxs-item" v-for="item in boxsArr">
+              <li>{{item.orderNum}}</li>
+              <li>{{item.box}}</li>
+              <li>{{item.status}}</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- 引入组件库 -->
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+
+      new Vue({
+        el: '#app',
+        data: {
+          msg: '11',
+          active: -1,
+          items: [
+            {orderNo: 'RD12345', number: '2017101912', status: '正常'},
+            {orderNo: 'RD12334', number: '2017101916', status: '完成'},
+            {orderNo: 'RD12324', number: '2017101918', status: '部分完成'}
+          ],
+          boxsArr: [],
+          faker: [
+            {orderNum: 'RD12345', box: '212', status: '正常'},
+            {orderNum: 'RD12334', box: '16', status: '完成'},
+            {orderNum: 'RD12324', box: '918', status: '部分完成'}
+          ]
+        },
+        methods: {
+          getBox(index, event) {
+            var target = event.target;
+            this.$nextTick(function(){
+              target.parentNode.parentNode.classList.add('border-bottom');
+              this.boxsArr = this.faker;
+              if (target.className.indexOf('plus') !== -1) {
+                target.className = 'el-icon-minus';
+                this.active = index;
+              } else {
+                target.className = 'el-icon-plus';
+                this.active = -1;
+                target.parentNode.parentNode.classList.remove('border-bottom');
+              }
+            }.bind(this));
+          }
+        }
+      })
+
+    </script>
+</body>
+</html>
