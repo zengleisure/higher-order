@@ -13,8 +13,6 @@
 
 
 > js 牢记的6个假值 0、“”、null、undefined、NaN、false。
->
-> 
 
 
 

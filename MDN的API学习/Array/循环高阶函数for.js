@@ -201,11 +201,31 @@ ArrayPro.map = function(callback, thisArg) {
  * @param {initialValue 可选 callback的第一个参数的值。如果没有提供初始值 则将使用数组中的第一个元素。}
  */
 
- 
+// 常用场景一 累积计算
+
+var total = [0, 1, 2, 3, 4].reduce(function(sum, ele, index, arr){
+    return sum + ele;
+}, 0); // total is 10
 
 
+// 场景二 数组扁平化 二维或多维数组转换为一维
 
+function flatten(arr) {
+  return arr.reduce(function(sum, ele, index, arr){
+    // 判断元素是否是数组
+    return sum.concat(Array.isArray(ele) ? flatten(ele) : ele);
+  }, []);
+}
 
+// 计算数组每个元素出现的次数
 
-
-sss
+Array.prototype.countArrTimes = function() {
+  return this.reduce(function(sum, ele, index, arr){
+    if (ele in sum) {
+      sum[ele]++;
+    } else {
+      sum[ele] = 1;
+    }
+    return sum;
+  }, {});
+}
