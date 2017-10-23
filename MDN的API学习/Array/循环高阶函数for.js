@@ -15,50 +15,50 @@
 
 let arr = [1, 2, 3, 4];
 
-arr.forEach(function(ele){
-  console.log(ele); // a b c
+arr.forEach(function(ele) {
+    console.log(ele); // a b c
 });
 
 // 这是一个 ES5的方法 所以 不支持IE9以下 下面是一个 Polyfill
 
 if (!Array.prototype.forEach) {
-  // 在数组的原型上扩展forEach方法 一个回调函数 一个this
-  Array.prototype.forEach = function(callback, thisArg) {
-    var k, T;
+    // 在数组的原型上扩展forEach方法 一个回调函数 一个this
+    Array.prototype.forEach = function(callback, thisArg) {
+        var k, T;
 
-    // 判断是不是数组是否未定义或null 抛出异常
-    if (this === null) {
-      throw new TypeError(' this is null or is not defined');
-    }
+        // 判断是不是数组是否未定义或null 抛出异常
+        if (this === null) {
+            throw new TypeError(' this is null or is not defined');
+        }
 
-    // 让数组调用Object 返回一个对象
-    var O = Object(this);
+        // 让数组调用Object 返回一个对象
+        var O = Object(this);
 
-    // 缓存length属性
-    var len = O.length >>> 0;
+        // 缓存length属性
+        var len = O.length >>> 0;
 
-    if (typeof callback !== 'function') {
-      throw new TypeError(callback + ' is not a function');
-    }
+        if (typeof callback !== 'function') {
+            throw new TypeError(callback + ' is not a function');
+        }
 
-    // 如果提供了thisArg 就赋给T 否则就传一个undefined
-    if (arguments.length > 1) {
-      T = thisArg;
-    }
+        // 如果提供了thisArg 就赋给T 否则就传一个undefined
+        if (arguments.length > 1) {
+            T = thisArg;
+        }
 
-    k = 0;
+        k = 0;
 
-    while (k < len) {
-      // 初始化一个变量存储数组的元素 k 是索引 O是数组 kValue是元素值
-      var kValue;
-      // 如果指定的属性在指定的对象中 in运算符就会返回true
-      if (k in O) {
-        kValue = O[k];
-        callback.call(T, kValue, k, O);
-      }
-      k++;
-    }
-  };
+        while (k < len) {
+            // 初始化一个变量存储数组的元素 k 是索引 O是数组 kValue是元素值
+            var kValue;
+            // 如果指定的属性在指定的对象中 in运算符就会返回true
+            if (k in O) {
+                kValue = O[k];
+                callback.call(T, kValue, k, O);
+            }
+            k++;
+        }
+    };
 }
 
 // =================================================================================
@@ -70,41 +70,41 @@ if (!Array.prototype.forEach) {
  ***/
 
 // result is false
-var result = [12, 6, 130, 44].every(function(ele){
-  return ele >= 10;
+var result = [12, 6, 130, 44].every(function(ele) {
+    return ele >= 10;
 });
 
 // this is true
-var result = [12, 16, 130, 44].every(function(ele){
-  return ele >= 10;
+var result = [12, 16, 130, 44].every(function(ele) {
+    return ele >= 10;
 });
 
 
 // Polyfill
 
 ArrayPro.every = function(callback, thisArg) {
-  // 判断 数组是否定义
-  if (this === void 0 || this === null) {
-    throw new TypeError();
-  }
-
-  var t = Object(this);
-
-  var len = t.length >>> 0;
-
-  if (typeof callback !== 'function') {
-    throw new TypeError();
-  }
-
-  // 保存第二个参数 如果有就传定义的this 否则就传undefined
-  var thisArg = arguments.length > 1 ? arguments[1] : void 0;
-
-  for (var i = 0; i < len; i++) {
-    if (i in t && !callback.call(thisArg, t[i], i, t)) {
-      return false;
+    // 判断 数组是否定义
+    if (this === void 0 || this === null) {
+        throw new TypeError();
     }
-  }
-  return true;
+
+    var t = Object(this);
+
+    var len = t.length >>> 0;
+
+    if (typeof callback !== 'function') {
+        throw new TypeError();
+    }
+
+    // 保存第二个参数 如果有就传定义的this 否则就传undefined
+    var thisArg = arguments.length > 1 ? arguments[1] : void 0;
+
+    for (var i = 0; i < len; i++) {
+        if (i in t && !callback.call(thisArg, t[i], i, t)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -115,78 +115,78 @@ ArrayPro.every = function(callback, thisArg) {
  * filter 不会改变原数组
  */
 
-var result = [10, 20, 22, 30].filter(function(ele){
-  return ele > 25;
+var result = [10, 20, 22, 30].filter(function(ele) {
+    return ele > 25;
 });
 
 // [30]
 
 ArrayPro.filter = function(callback, thisArg) {
-  if (this === void 0 || this === null) {
-    throw new TypeError('this is undefined');
-  }
-
-  var arg, len, k;
-
-  var O = Object(this);
-  len = O.length >>> 0;
-  arg = arguments.length > 1 ? arguments[1] : void 0;
-
-  k = 0;
-
-  var result = [];
-  while (k < len) {
-    var kValue;
-    if (k in O) {
-      kValue = O[k];
-      if (callback.call(arg, kValue, k, O)) {
-        result[result.length] = kValue;
-      }
+    if (this === void 0 || this === null) {
+        throw new TypeError('this is undefined');
     }
-    k++;
-  }
-  return result;
+
+    var arg, len, k;
+
+    var O = Object(this);
+    len = O.length >>> 0;
+    arg = arguments.length > 1 ? arguments[1] : void 0;
+
+    k = 0;
+
+    var result = [];
+    while (k < len) {
+        var kValue;
+        if (k in O) {
+            kValue = O[k];
+            if (callback.call(arg, kValue, k, O)) {
+                result[result.length] = kValue;
+            }
+        }
+        k++;
+    }
+    return result;
 }
 
 // =====================================================================================
 
 // map  返回一个新数组。 结果是该数组中每个元素都调用一个提供的函数后返回的结果
-var number = [1, 2, 3, 4].map(function(ele, index){
-  return ele * 2;
+var number = [1, 2, 3, 4].map(function(ele, index) {
+    return ele * 2;
 });
 
 // [2, 4, 6, 8]
 
 ArrayPro.map = function(callback, thisArg) {
-  if (this === void 0 || this === null) {
-    throw new TypeError('this is undefined');
-  }
-
-  var arg, len, k;
-
-  var O = Object(this);
-  len = O.length >>> 0;
-  arg = arguments.length > 1 ? arguments[1] : void 0;
-
-  k = 0;
-
-  // 最终要返回的数组
-  var result = new Array(len);
-  var mapValue;
-  
-  while (k < len) {
-    var kValue;
-    if (k in O) {
-      kValue = O[k];
-      
-      mapValue = callback.call(arg, kValue, k, O);
-      // 将返回值赋给数组
-      result[k] = mapValue;
+    if (this === void 0 || this === null) {
+        throw new TypeError('this is undefined');
     }
-    k++;
-  }
-  // 返回新数组
-  return result;
+
+    var arg, len, k;
+
+    var O = Object(this);
+    len = O.length >>> 0;
+    arg = arguments.length > 1 ? arguments[1] : void 0;
+
+    k = 0;
+
+    // 最终要返回的数组
+    var result = new Array(len);
+    var mapValue;
+
+    while (k < len) {
+        var kValue;
+        if (k in O) {
+            kValue = O[k];
+
+            mapValue = callback.call(arg, kValue, k, O);
+            // 将返回值赋给数组
+            result[k] = mapValue;
+        }
+        k++;
+    }
+    // 返回新数组
+    return result;
 }
 
 
@@ -201,11 +201,6 @@ ArrayPro.map = function(callback, thisArg) {
  * @param {initialValue 可选 callback的第一个参数的值。如果没有提供初始值 则将使用数组中的第一个元素。}
  */
 
- 
+function reduce(callback, thisArg) {
 
-
-
-
-
-
-sss
+}
