@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Language" content="zh-cn" />
+<!-- mobile start -->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta content="telephone=no" name="format-detection" />
+<!-- mobile end -->
+<title>简单易用的万能表单验证插件</title>
+<style>
+	/* reset */
+	html,body {height:100%;box-sizing:border-box;}
+	body {background:#fff;color:#333;font-size:14px;margin:0 auto;line-height:1.42857143;font-family:"Myriad Set Pro","Helvetica Neue","Helvetica","Arial",sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;word-wrap:break-word;word-break:break-all;}
+	article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section {display:block;}
+	h1,h2,h3,h4,h5,h6 {font-weight:normal;margin:0;}
+	p {margin:0;}
+	a {text-decoration:none;color:inherit;}
+	a:hover {text-decoration:none;}
+	ul,ol {list-style:none;margin:0;padding:0;}
+	input,button,select,textarea {vertical-align:top;border:1px solid #d5d5d5;outline:none;background:#fff;padding:0;margin:0;font-family:inherit;line-height:inherit;color:inherit;font-size:inherit;}
+	/*input,button,textarea {-webkit-appearance:none;-moz-appearance:none;-ms-appearance:none;appearance:none;}*/
+	input::-webkit-contacts-auto-fill-button {visibility:hidden;pointer-events:none;opacity:0;}
+	textarea {resize:vertical;}
+	select {box-sizing:content-box;}
+	img {display:block;max-width:100%;border:none;}
+	label {cursor:pointer;}
+	svg {overflow:hidden;vertical-align:middle;}
+	.clearfix:before,.clearfix:after {content:"";display:table;visibility:hidden;} .clearfix:after {clear:both;} .clearfix {*zoom:1;}
+	table {width:100%;text-align:center;border-collapse:collapse;border:1px solid #d5d5d5;text-align:center;}
+	th,td {border:1px solid #d5d5d5;padding:0;}
+	input::-moz-placeholder, textarea::-moz-placeholder {color:#999;font-family:inherit;}
+	input:-ms-input-placeholder, textarea:-ms-input-placeholder {color:#999;font-family:inherit;}
+	input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {color:#999;font-family:inherit;}
+	input:placeholder, textarea:placeholder {color:#999;font-family:inherit;}
+	input[type="radio"],input[type="checkbox"] {vertical-align:middle;display:inline-block;}
+
+
+	/* block */
+	.st-block,
+	.st-btn.st-block,
+	.st-control.st-block {display:block;width:100%;box-sizing:border-box;}
+	/* disabled */
+	.disabled, [disabled],
+	.st-btn.disabled, .st-btn[disabled],
+	.st-control.disabled, .st-control[disabled] {opacity:0.6;filter:alpha(opacity=60);cursor:not-allowed;}
+
+	.st-btn {line-height:20px;padding:5px 20px;box-sizing:border-box;display:inline-block;text-align:center;border-radius:3px;border:1px solid transparent;color:#333;cursor:pointer;}
+	.st-btn:not(.disabled):not([disabled]):active {opacity:0.8;filter:alpha(opacity=80);}
+	.st-btn {background-color:#e5e5e5;}
+	.st-btn:hover {background-color:#d0d0d0;color:inherit;}
+
+	.st-control {line-height:20px;height:32px;box-sizing:border-box;padding:5px 10px;font-size:14px;border:1px solid #d5d5d5;}
+	.st-control:focus {border-color:#bbb;}
+	[type="radio"].st-control, [type="checkbox"].st-control {border:none;padding:0;height:20px;}
+	textarea.st-control {min-height:60px;font-size:13px;line-height:16px;}
+	select.st-control[multiple] {height:100px;}
+
+	.st-error {color:#fa837d;display:none;font-size:13px;padding-top:5px;}
+</style>
+</head>
+<body>
+
+
+	<form id="upForm" action="http://jq22.com/" style="width:360px;margin:0 auto;padding:100px 0;">
+		<h1 style="text-align:center;padding-bottom:30px;">万能表单验证插件</h1>
+
+		<input type="text" placeholder="邮箱地址" class="st-control st-block" name="umail" value="admin@163.com"/>
+		<div class="st-error" id="err1"></div>
+		<br />
+
+		<input type="password" placeholder="登录密码" class="st-control st-block" name="upwd" />
+		<div class="st-error" id="err2"></div>
+		<br />
+
+		<input type="password" placeholder="确认密码" class="st-control st-block" name="urepwd" />
+		<div class="st-error" id="err3"></div>
+		<br />
+
+		性别：
+		<label><input type="radio" name="usex" class="st-control" /> 男</label>
+		<label><input type="radio" name="usex" class="st-control" /> 女</label>
+		<br />
+		<div class="st-error" id="err4"></div>
+		<br />
+
+		爱好：
+		<label><input type="checkbox" name="uhob" class="st-control" />篮球</label>
+		<label><input type="checkbox" name="uhob" class="st-control" />足球</label>
+		<label><input type="checkbox" name="uhob" class="st-control" />羽毛球</label>
+		<label><input type="checkbox" name="uhob" class="st-control" />棒球</label>
+		<label><input type="checkbox" name="uhob" class="st-control" />乒乓球</label>
+		<br />
+		<div class="st-error" id="err5"></div>
+		<br />
+
+		<select name="ucolor" class="st-control st-block">
+			<option value="">喜欢的颜色</option>
+			<option value="black">黑色</option>
+			<option value="blue">蓝色</option>
+			<option value="green">绿色</option>
+			<option value="red">红色</option>
+			<option value="orange">橙色</option>
+		</select>
+		<div class="st-error" id="err6"></div>
+		<br />
+
+		头像：
+		<input type="file" name="uavatar" class="st-control st-block" />
+		<div class="st-error" id="err7"></div>
+		<br />
+
+		<input type="submit" id="submit" class="st-btn st-block" value="提交" />
+	</form>
+	
+
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script charset="utf-8" src="validator.js"></script>
+<script>
+
+	var eles = {
+		form : $('#upForm'),
+		umail : $('[name="umail"]'),
+		upwd : $('[name="upwd"]'),
+		urepwd : $('[name="urepwd"]'),
+		usex : $('[name="usex"]'),
+		uhob : $('[name="uhob"]'),
+		ucolor : $('[name="ucolor"]'),
+		uavatar : $('[name="uavatar"]'),
+		submit : $('#submit'),
+		err1 : $('#err1'),
+		err2 : $('#err2'),
+		err3 : $('#err3'),
+		err4 : $('#err4'),
+		err5 : $('#err5'),
+		err6 : $('#err6'),
+		err7 : $('#err7'),
+		errTxt1 : '邮箱格式错误！',
+		errTxt2 : '密码格式错误，必须由于字母和数字组成！',
+		errTxt3 : '两此输入的密码不一致！',
+		errTxt4 : '必须选择性别！',
+		errTxt5 : '请选择爱好2-4项！',
+		errTxt6 : '请选择喜欢的颜色！',
+		errTxt7 : '请选择图片文件，格式仅限gif、jpg、jpeg、png！',
+		norm_mail : /^([a-zA-Z0-9]+[-_.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[-_.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/,
+		norm_pwd : /^(?![a-zA-Z]+$)(?![0-9]+$)[a-zA-Z0-9]{8,18}$/,
+		norm_sex : 1,
+		norm_hob : '[2,4]',
+		norm_color : /\S+/,
+		norm_avatar : /\.(gif|jpg|jpeg|png)/i,
+	}
+
+	//邮箱校验
+	eles.umail.on('change',function(){
+		eles.umail.validator( eles.norm_mail, eles.err1, eles.errTxt1 )
+	})
+	//密码校验
+	eles.upwd.on('change',function(){
+		eles.upwd.validator( eles.norm_pwd, eles.err2, eles.errTxt2 )
+	})
+	//确认密码校验
+	eles.urepwd.on('change',function(){
+		eles.urepwd.validator( eles.upwd.val(), eles.err3, eles.errTxt3 )
+	})
+	//性别校验
+	eles.usex.on('change',function(){
+		eles.usex.validator( eles.norm_sex, eles.err4, eles.errTxt4 )
+	})
+	//爱好校验
+	eles.uhob.on('change',function(){
+		eles.uhob.validator( eles.norm_hob, eles.err5, eles.errTxt5 )
+	})
+	//颜色校验
+	eles.ucolor.on('change',function(){
+		eles.ucolor.validator( eles.norm_color, eles.err6, eles.errTxt6 )
+	})
+	//头像校验
+	eles.uavatar.on('change',function(){
+		eles.uavatar.validator( eles.norm_avatar, eles.err7, eles.errTxt7 )
+	})
+
+	//提交
+	eles.form.on('submit',function(ev){
+		if(
+			eles.umail.validator( eles.norm_mail, eles.err1, eles.errTxt1 ) &&
+			eles.upwd.validator( eles.norm_pwd, eles.err2, eles.errTxt2 ) &&
+			eles.urepwd.validator( eles.upwd.val(), eles.err3, eles.errTxt3 ) &&
+			eles.usex.validator( eles.norm_sex, eles.err4, eles.errTxt4 ) &&
+			eles.uhob.validator( eles.norm_hob, eles.err5, eles.errTxt5 ) &&
+			eles.ucolor.validator( eles.norm_color, eles.err6, eles.errTxt6 ) &&
+			eles.uavatar.validator( eles.norm_avatar, eles.err7, eles.errTxt7 )
+		) {
+			eles.form.submit()
+		}
+		ev.preventDefault()
+	})
+
+</script>
+</body>
+</html>
