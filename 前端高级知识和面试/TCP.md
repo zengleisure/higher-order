@@ -1,12 +1,12 @@
 ### OSI七层模型和 TCP/IP
 
 - 应用层 文件传输 电子邮件 文件服务 虚拟终端 HTTP SNMP FTP SMTP DNS
-- 表示层	数据格式化 代码转换 数据加密
-- 会话层	解除或建立与别的接点的联系
-- 传输层	提供端对端的接口	TCP UDP
-- 网络层	为数据包选择路由	IP ICMP RIP OSPF BGP ICMP
-- 数据链路层 传输有地址的帧以及错误检测功能	ARP PPP RARP MTU
-- 物理层 以二进制数据形式在物理媒体上传输数据	IEEE802 ISO2110
+  - 表示层数据格式化 代码转换 数据加密
+  - 会话层解除或建立与别的接点的联系
+    - 传输层提供端对端的接口TCP UDP
+    - 网络层为数据包选择路由IP ICMP RIP OSPF BGP ICMP
+  - 数据链路层 传输有地址的帧以及错误检测功能ARP PPP RARP MTU
+  - 物理层 以二进制数据形式在物理媒体上传输数据IEEE802 ISO2110
 
 
 
