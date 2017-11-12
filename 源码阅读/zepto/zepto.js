@@ -101,9 +101,13 @@
             )
         }
 
+        // 过滤数组 去掉 undefined和null的
         function compact(array) { return filter.call(array, function(item) { return item != null }) }
 
+        // 数组扁平化  但是只能一层
         function flatten(array) { return array.length > 0 ? $.fn.concat.apply([], array) : array }
+
+
         camelize = function(str) { return str.replace(/-+(.)?/g, function(match, chr) { return chr ? chr.toUpperCase() : '' }) }
 
         function dasherize(str) {
@@ -113,6 +117,8 @@
                 .replace(/_/g, '-')
                 .toLowerCase()
         }
+
+
         uniq = function(array) { return filter.call(array, function(item, idx) { return array.indexOf(item) == idx }) }
 
         function classRE(name) {
