@@ -41,7 +41,8 @@ var posPattern = /^\d*\.?\d+$/;
 //负数正则
 var negPattern = /^-\d*\.?\d+$/;
 //数字正则
-var numPattern = /^-?\d*\.?\d+$/;
+var numPattern = /^-?\d*\.?\d+$/; // 这种可以输入之后比较 
+
 console.log(posPattern.test("42.2"));
 console.log(negPattern.test("-42.2"));
 console.log(numPattern.test("-42.2"));
