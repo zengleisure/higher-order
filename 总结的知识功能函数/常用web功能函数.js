@@ -46,3 +46,16 @@ function param(options) {
     });
     return param;
 }
+
+/**
+ * 判断一个对象是否为空 对象是没有length属性的 但是我们可以遍历对象来判断是否有自有属性
+ */
+
+function isEmptyObj(obj){
+    for (var i in obj){
+        return true;
+    }
+    return false;
+}
+
+

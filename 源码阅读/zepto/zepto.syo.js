@@ -77,9 +77,11 @@
               return new Z(dom, selector);
             }
 
+
+
             // 应该返回true 如果传的对象是一个zepto的集合。 
             zepto.isZ = function(obj) {
-              return Object instanceof zepto.Z;
+              return obj instanceof zepto.Z;
             }
 
             // 这个方法可以在插件中被重写
@@ -90,7 +92,36 @@
 
               else if (typeof selector == 'string') {
                 selector = selector.trim();
+                // 如果是一个html文档节点 创建一个node
+                if (selector[0] == '<' && fragmentRE.test(selector)) {
+                  dom = zepto.fragment(selector, RegExp.$1, context),
+                  selector = null;
+                }
+                else if (context !== void 0) return $(content).find(selector)
+                // 如果是css选择器 用它来选择节点
+                else dom = zepto.qsa(document, selector);
               }
+               // If a function is given, call it when the DOM is ready
+              else if (isFunction(selector)) return $(document).ready(selector)
+                  // If a Zepto collection is given, just return it
+              else if (zepto.isZ(selector)) return selector
+              else {
+                  // normalize array if an array of nodes is given
+                  if (isArray(selector)) dom = compact(selector)
+                      // Wrap DOM nodes.
+                  else if (isObject(selector))
+                      dom = [selector], selector = null
+                      // If it's a html fragment, create nodes from it
+                  else if (fragmentRE.test(selector))
+                      dom = zepto.fragment(selector.trim(), RegExp.$1, context), selector = null
+                      // If there's a context, create a collection on that context first, and select
+                      // nodes from there
+                  else if (context !== undefined) return $(context).find(selector)
+                      // And last but no least, if it's a CSS selector, use it to select nodes.
+                  else dom = zepto.qsa(document, selector)
+              }
+              // create a new Zepto collection from the nodes found
+              return zepto.Z(dom, selector)
             }
 
             // 245
@@ -100,12 +131,16 @@
               return zepto.init(selector, context);
             }
 
-
+            // 将Z原型指向 $的原型 这样就可以使用 $上面的方法
             zepto.Z.prototype = Z.prototype = $.fn; 
             
             zepto.uniq = uniq;
             zepto.deserializeValue = deserializeValue;
             $.zepto = zepto;
+
+            /**
+             * $ 返回的是Z的实例
+             */
 
             return $;
   })();

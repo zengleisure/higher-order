@@ -101,7 +101,12 @@
             )
         }
 
-        function compact(array) { return filter.call(array, function(item) { return item != null }) }
+        function compact(array) { 
+            return filter.call(array, function(item) {
+                // 使用!= 可以排除null 和 undefined。 当undefined和null 对比会将两者先转换为false  
+                return item != null; 
+            }); 
+        }
 
         function flatten(array) { return array.length > 0 ? $.fn.concat.apply([], array) : array }
         camelize = function(str) { return str.replace(/-+(.)?/g, function(match, chr) { return chr ? chr.toUpperCase() : '' }) }

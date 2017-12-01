@@ -37,14 +37,22 @@ console.log(intPattern.test("-42"));
  */
 
 //正数正则
-var posPattern = /^\d*\.?\d+$/;
+var posPattern = /^\d*\.?\d+$/; // 满足 2 23 23.2 不满足 23. 
 //负数正则
 var negPattern = /^-\d*\.?\d+$/;
 //数字正则
 var numPattern = /^-?\d*\.?\d+$/;
+
+/**
+ * 有时候要将输入的数字转换保留两位小数 所以 我们可以这样
+ * event.target.value = (Number(event.target.value)).toFixed(2);
+ */
+
 console.log(posPattern.test("42.2"));
 console.log(negPattern.test("-42.2"));
 console.log(numPattern.test("-42.2"));
+
+
 
 /**
  * 6  Email正则
@@ -108,3 +116,37 @@ console.log(dP2.test("2017-02-29"));
 /**
  * 12 QQ号码正则
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * 
+ * =========================================================
+ */
+
+
