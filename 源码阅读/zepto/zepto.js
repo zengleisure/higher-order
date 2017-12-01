@@ -101,14 +101,22 @@
             )
         }
 
+<<<<<<< HEAD
         function compact(array) { 
             return filter.call(array, function(item) {
                 // 使用!= 可以排除null 和 undefined。 当undefined和null 对比会将两者先转换为false  
                 return item != null; 
             }); 
         }
+=======
+        // 过滤数组 去掉 undefined和null的
+        function compact(array) { return filter.call(array, function(item) { return item != null }) }
+>>>>>>> 50f9df7babb3e76cd02695fca140285ad5d05bde
 
+        // 数组扁平化  但是只能一层
         function flatten(array) { return array.length > 0 ? $.fn.concat.apply([], array) : array }
+
+
         camelize = function(str) { return str.replace(/-+(.)?/g, function(match, chr) { return chr ? chr.toUpperCase() : '' }) }
 
         function dasherize(str) {
@@ -118,6 +126,8 @@
                 .replace(/_/g, '-')
                 .toLowerCase()
         }
+
+
         uniq = function(array) { return filter.call(array, function(item, idx) { return array.indexOf(item) == idx }) }
 
         function classRE(name) {
