@@ -47,6 +47,9 @@ console.log(posPattern.test("42.2"));
 console.log(negPattern.test("-42.2"));
 console.log(numPattern.test("-42.2"));
 
+// 大于0 可带小数点 保留两位小数 1, 12 12.1 12.11
+var pat = /^[1-9]\d*\.?\d{0,2}$/;
+
 
 
 /**
